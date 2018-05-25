@@ -39,7 +39,7 @@ class Names extends StatefulWidget {
 class _NamesState extends State<Names> {
   List<Name> _names = [];
   List<Widget> _namesTiles = [];
-  String uriString = "mongodb://[2601:247:c301:7d94:7141:9ff9:e2e5:7d09]:27017/rpc1";
+  String uriString = "mongodb://<your public IP address>:27017/rpc1";
   String collectionName = "names";
 
   @override
