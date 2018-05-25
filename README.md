@@ -7,7 +7,7 @@ A new Flutter project.
 For help getting started with Flutter, view our online
 [documentation](https://flutter.io/).
 
-You can install MongoDB from [MongoDB](https://www.mongodb.com).
+You can install MongoDB from [this link](https://www.mongodb.com).
 
 Replace the value of uriString with your public IP address.
 
