@@ -8,7 +8,7 @@ main() {
   var myRouter = router()
       ..get("/list", (Request request) async {
         List<Map> list = new List();
-        mongo.Db database = new mongo.Db('mongodb://127.0.0.1:27017/rpc1');
+        mongo.Db database = new mongo.Db('mongodb://SAFELOCALADDRESS:27017/rpc1');
         mongo.DbCollection collection = database.collection('names');
         await database.open();
         await collection.find().forEach((Map map) {
