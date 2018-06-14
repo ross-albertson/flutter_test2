@@ -2,7 +2,7 @@ name: flutter_test2
 description: A new Flutter project.
 
 dependencies:
-  mongo_dart: ^0.3.1
+  mongo_dart: any
   flutter:
     sdk: flutter
 

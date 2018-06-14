@@ -20,15 +20,15 @@ class MyApp extends StatelessWidget {
         // counter didn't reset back to zero; the application is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: new Names(pageName: "Facebook Code Test",),
+      home: new Names(
+        pageName: "Facebook Code Test",
+      ),
     );
   }
 }
 
 class Names extends StatefulWidget {
-
   final String pageName;
-
 
   const Names({Key key, this.pageName}) : super(key: key);
 
@@ -39,7 +39,7 @@ class Names extends StatefulWidget {
 class _NamesState extends State<Names> {
   List<Name> _names = [];
   List<Widget> _namesTiles = [];
-  String uriString = "mongodb://[2601:247:c301:7d94:7141:9ff9:e2e5:7d09]:27017/rpc1";
+  String uriString = "mongodb://172.20.20.20/rpc1";
   String collectionName = "names";
 
   @override
@@ -54,8 +54,8 @@ class _NamesState extends State<Names> {
     await db.open();
     await collection.find().forEach((map) {
       Name name = new Name()
-          ..firstName = map['firstName']
-          ..lastName = map['lastName'];
+        ..firstName = map['firstName']
+        ..lastName = map['lastName'];
       _names.add(name);
     });
     setState(() {
@@ -64,22 +64,22 @@ class _NamesState extends State<Names> {
         _namesTiles.add(text);
       }
     });
-
-
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return new Scaffold(
-      appBar: new AppBar(title: new Text(widget.pageName),),
-      body: new ListView.builder(itemBuilder: (context, index) => _namesTiles[index],
-      itemCount: _namesTiles.length,),
+      appBar: new AppBar(
+        title: new Text(widget.pageName),
+      ),
+      body: new ListView.builder(
+        itemBuilder: (context, index) => _namesTiles[index],
+        itemCount: _namesTiles.length,
+      ),
     );
   }
 }
-
-
 
 class Name {
   String firstName;
@@ -90,10 +90,4 @@ class Name {
     // TODO: implement toString
     return "$firstName $lastName";
   }
-
-
 }
-
-
-
-
