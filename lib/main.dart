@@ -43,7 +43,7 @@ class _NamesState extends State<Names> {
   List<Name> _names = new List();
   List<Widget> _namesTiles = new List();
   String uriString =
-      "mongodb://[2601:247:c301:7d94:7141:9ff9:e2e5:7d09]:27017/rpc1";
+      "mongodb://PUBLICSERVERIP:27017/rpc1";
   String collectionName = "names";
 
   @override
