@@ -43,7 +43,7 @@ class _NamesState extends State<Names> {
   List<Name> _names = new List();
   List<Widget> _namesTiles = new List();
   String uriString =
-      "mongodb://PUBLICSERVERIP:27017/rpc1";
+      "mongodb://DATABASESERVER:27017/rpc1";
   String collectionName = "names";
 
   @override
@@ -62,7 +62,7 @@ class _NamesState extends State<Names> {
           ..lastName = map['lastName'];
       _names.add(name);
     }); */
-    http.Response response = await http.get("http://172.20.20.20:8000/list");
+    http.Response response = await http.get("http://SERVICEIP:8000/list");
       String body = response.body;
       List data = jsonDecode(body);
       for (Map raw in data) {
