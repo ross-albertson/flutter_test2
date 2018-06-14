@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mongo_dart/mongo_dart.dart' as mongo;
+
+//import 'package:mongo_dart/mongo_dart.dart' as mongo;
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 void main() => runApp(new MyApp());
 
@@ -9,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'Flutter Demo',
-      theme: new ThemeData(
+      theme: ThemeData(
         // This is the theme of your application.
         //
         // Try running your application with "flutter run". You'll see the
@@ -33,13 +36,14 @@ class Names extends StatefulWidget {
   const Names({Key key, this.pageName}) : super(key: key);
 
   @override
-  _NamesState createState() => new _NamesState();
+  _NamesState createState() => _NamesState();
 }
 
 class _NamesState extends State<Names> {
-  List<Name> _names = [];
-  List<Widget> _namesTiles = [];
-  String uriString = "mongodb://172.20.20.20/rpc1";
+  List<Name> _names = new List();
+  List<Widget> _namesTiles = new List();
+  String uriString =
+      "mongodb://[2601:247:c301:7d94:7141:9ff9:e2e5:7d09]:27017/rpc1";
   String collectionName = "names";
 
   @override
@@ -49,17 +53,29 @@ class _NamesState extends State<Names> {
   }
 
   _getNames() async {
-    mongo.Db db = new mongo.Db(uriString);
+/*    mongo.Db db = new mongo.Db(uriString);
     var collection = db.collection(collectionName);
     await db.open();
     await collection.find().forEach((map) {
       Name name = new Name()
-        ..firstName = map['firstName']
-        ..lastName = map['lastName'];
+          ..firstName = map['firstName']
+          ..lastName = map['lastName'];
       _names.add(name);
-    });
+    }); */
+    http.Response response = await http.get("http://172.20.20.20:8000/list");
+      String body = response.body;
+      List data = jsonDecode(body);
+      for (Map raw in data) {
+        Name name = new Name()
+          ..firstName = raw['firstName']
+          ..lastName = raw['lastName'];
+ //       print("Received $name");
+        _names.add(name);
+      }
+ //   print("received $_names");
+
     setState(() {
-      for (var found in _names) {
+      for (Name found in _names) {
         Text text = new Text("$found");
         _namesTiles.add(text);
       }
@@ -70,10 +86,10 @@ class _NamesState extends State<Names> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(widget.pageName),
+      appBar: AppBar(
+        title: Text(widget.pageName),
       ),
-      body: new ListView.builder(
+      body: ListView.builder(
         itemBuilder: (context, index) => _namesTiles[index],
         itemCount: _namesTiles.length,
       ),
