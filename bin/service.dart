@@ -18,5 +18,5 @@ main() {
         await database.close();
         return new Response.ok(jsonEncode(list));
       });
-  io.serve(myRouter.handler, "172.20.20.20", 8000);
+  io.serve(myRouter.handler, "SERVICEIP", 8000);
 }
